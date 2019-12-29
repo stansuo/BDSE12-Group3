@@ -1,0 +1,7 @@
+1. Docker cd 到該目錄，並輸入下方指令
+2.  docker build -t pytensor_gpu . --no-cache
+3. docker container run -it --name pytensor_gpu -v $HOME/share/Tensorflow:/tf/notebooks -p 8800:8888 -p4040:4040 pytensor_gpu
+4. 到瀏覽器輸入 192.168.99.100:8800
+
+
+ 附記:容器目前安裝Python套件有: munch、seaborn、scipy、numpy、pandas、tensorflow
