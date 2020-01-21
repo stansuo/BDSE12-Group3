@@ -4,9 +4,9 @@ echo "Second parameter: $2"
 echo "Third parameter: $3"
 echo "four parameter: $4"
 
-	[[ "$4" == "all" ]] && read -p "Are you sure ? (yes/NO) " ans &&  \
+	[[ $4 == "all" ]] && read -p "Are you sure ? (yes/NO) " ans &&  \
 	[[ "$ans" != "yes" ]] && echo "Terminate program..." && exit  
-	if [ "$4" != "all" ]
+	if [ $4 != "all" ]
 	then
 		echo "Loanding........"  
 		python ./py_to_sql.py "$1" "$2" "$3" "$4" 
