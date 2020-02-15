@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #自動檢查叢集服務運作狀態
+#限定hadoop帳號才能使用
 
 # Copyright (c) IIIedu BDSE.
 # BDSE12 Project <contactus@iii.org.tw>
@@ -15,19 +16,20 @@ echo -e "${B}Checking the environment...${N}"
 hadoop_home="/usr/local/hadoop/etc/hadoop/"
 awk2='awk NR=="2"'
 grep1='grep -A 1'
-cut1="cut -d "." -f1"
 cat ${hadoop_home}core-site.xml &>/dev/null
 [[ "$?" == "1" ]] && echo -e "${R}Can't find out core-site.xml,make sure your hadoop path: "${hadoop_home}" " \
 && echo -e "Terminate program...!${N}" && exit 1
+n=$(whoami)
+[[ ${n} != "hadoop" ]] && echo "oops, pls return to hadoop" && exit 1
 haCheck=$(cat ${hadoop_home}core-site.xml  | ${grep1} "fs.defaultFS" | ${awk2}| grep 'cluster' )
 [[ -n ${haCheck} ]] && echo -e "${B}Your cluster : HA cluster${N}" || echo "${B}Your cluster : Normal cluster${N}"
 if [[ -n ${haCheck} ]]
-
 	then
 		#HA叢集
 		#自動檢查檢查XML各服務主機
 			nna="dfs.namenode.rpc-address.nncluster.nn"
 			rma="yarn.resourcemanager.hostname.rm"
+			cut1="cut -d "." -f1"
 			hadoop=$(cat ${hadoop_home}hdfs-site.xml | ${grep1} "${nna}1" | ${awk2} )
 			nn1=$(echo ${hadoop#*value>} | ${cut1} )
 			hadoop=$(cat ${hadoop_home}hdfs-site.xml | ${grep1} "${nna}2" | ${awk2} )
@@ -58,7 +60,9 @@ if [[ -n ${haCheck} ]]
 				[[ "$?" == "0" ]] && State=$(hdfs haadmin -getServiceState nn${n}) \
 				&& echo "${nn}.example.org State: "$State" "
 				cat /tmp/out | grep 'NameNode' &>/dev/null
-				[[ "$?" == "1" ]] && ${nn}=$(echo "d")
+				[[ "$?" == "1" ]] &&  [[ ${nn} -eq nn1 ]] \
+				&& nn1=$(echo "d") \
+				&&	[[ ${nn} -eq nn2 ]]	&& nn2=$(echo "d")
 				n=$((n+1))
 			done
 		#check ResourceManager 1, 2
@@ -73,7 +77,9 @@ if [[ -n ${haCheck} ]]
 				[[ "$?" == "0" ]] && State=$(yarn rmadmin -getServiceState rm${n}) \
 				&& echo "${rm}.example.org State: "$State" "
 				cat /tmp/out | grep 'ResourceManager' &>/dev/null
-				[[ "$?" == "1" ]] && ${rm}=$(echo "d")
+				[[ "$?" == "1" ]] && [[ ${rm} -eq rm1 ]] \
+				&& rm1=$(echo "d") \
+				&&	[[ ${rm} -eq rm2 ]]	&& rm2=$(echo "d")
 				n=$((n+1))
 			done
 		#check JobHistoryServer
@@ -160,4 +166,3 @@ if [[ -n ${haCheck} ]]
 			cat /tmp/out | grep 'RUNNING' | cut -d " " -f1 | cut -d ":" -f1
 			echo ""
 fi
-
