@@ -49,7 +49,7 @@ if [[ -n ${haCheck} ]]
 			do
 				ssh ${nn} jps &> /tmp/out
 				cat /tmp/out | grep 'NameNode' &>/dev/null
-				[[ "$?" == "0" ]] && echo -e "{R}oops, pls stop NameNode{N}" \
+				[[ "$?" == "0" ]] && echo -e "${R}oops, pls stop NameNode${N}" \
 				&&  exit 1
 				n=$((n+1))
 			done	
@@ -59,7 +59,7 @@ if [[ -n ${haCheck} ]]
 			do
 				ssh ${rm} jps &> /tmp/out
 				cat /tmp/out | grep 'ResourceManager' &>/dev/null
-				[[ "$?" == "0" ]] && echo -e "{R}oops, pls stop ResourceManager{N}" \
+				[[ "$?" == "0" ]] && echo -e "${R}oops, pls stop ResourceManager${N}" \
 				&& exit 1 
 				n=$((n+1))
 			done			
@@ -74,12 +74,12 @@ if [[ -n ${haCheck} ]]
 			ssh ${nna} jps &> /tmp/out
 			echo ""
 			cat /tmp/out | grep 'NameNode' &>/dev/null
-			[[ "$?" == "0" ]] && echo -e "{R}oops, pls stop NameNode{N}" \
+			[[ "$?" == "0" ]] && echo -e "${R}oops, pls stop NameNode${N}" \
 			&&  exit 1
 		#自動檢查ResourceManager服務是否運作中
 			ssh ${rma} jps &> /tmp/out
 			cat /tmp/out | grep 'ResourceManager' &>/dev/null
-			[[ "$?" == "0" ]] && echo -e "{R}oops, pls stop ResourceManager{N}"  \
+			[[ "$?" == "0" ]] && echo -e "${R}oops, pls stop ResourceManager${N}"  \
 			&& exit 1
 fi
 	echo -e "${G}All services have been stopped${N}"
