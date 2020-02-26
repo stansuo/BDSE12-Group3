@@ -1,0 +1,16 @@
+Executing the command: jupyter lab
+[I 13:16:41.539 LabApp] Writing notebook server cookie secret to /home/jovyan/.local/share/jupyter/runtime/notebook_cookie_secret
+[I 13:16:42.780 LabApp] JupyterLab extension loaded from /opt/conda/lib/python3.7/site-packages/jupyterlab
+[I 13:16:42.780 LabApp] JupyterLab application directory is /opt/conda/share/jupyter/lab
+[I 13:16:43.826 LabApp] Serving notebooks from local directory: /home/jovyan
+[I 13:16:43.826 LabApp] The Jupyter Notebook is running at:
+[I 13:16:43.826 LabApp] http://f0f9097a0688:8888/?token=3f4331bdb8836ca60f5867e0e6583c373bd3ee3f426a85a7
+[I 13:16:43.826 LabApp]  or http://127.0.0.1:8888/?token=3f4331bdb8836ca60f5867e0e6583c373bd3ee3f426a85a7
+[I 13:16:43.826 LabApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 13:16:43.830 LabApp] 
+    
+    To access the notebook, open this file in a browser:
+        file:///home/jovyan/.local/share/jupyter/runtime/nbserver-6-open.html
+    Or copy and paste one of these URLs:
+        http://f0f9097a0688:8888/?token=3f4331bdb8836ca60f5867e0e6583c373bd3ee3f426a85a7
+     or http://127.0.0.1:8888/?token=3f4331bdb8836ca60f5867e0e6583c373bd3ee3f426a85a7
